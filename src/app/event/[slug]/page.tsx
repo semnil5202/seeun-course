@@ -8,8 +8,8 @@ export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
 
   return (
-    <div className="flex min-h-screen flex-col items-center gap-8 bg-zinc-50 px-6 py-16 dark:bg-black">
-      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
+    <div className="flex min-h-screen flex-col items-center gap-6 bg-zinc-50 px-4 py-12 sm:gap-8 sm:px-6 sm:py-16 dark:bg-black">
+      <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl dark:text-zinc-50">
         이벤트: {slug}
       </h1>
       <p className="text-zinc-600 dark:text-zinc-400">
