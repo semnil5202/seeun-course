@@ -8,9 +8,9 @@ function createHeart() {
   // 원근 레이어: 0=먼 배경, 1=중간, 2=가까운 전경
   const layer = Math.floor(Math.random() * 3);
   const sizeByLayer = [
-    8 + Math.random() * 10,
-    16 + Math.random() * 16,
-    30 + Math.random() * 24,
+    14 + Math.random() * 14,
+    24 + Math.random() * 22,
+    42 + Math.random() * 32,
   ];
   const opacityByLayer = [
     0.1 + Math.random() * 0.1,
@@ -33,13 +33,19 @@ function createHeart() {
     delay: Math.random() * 12,
     blur: blurByLayer[layer],
     sway: -30 + Math.random() * 60,
+    spin: Math.random() > 0.2,
+    spinDuration: 2 + Math.random() * 4,
+    spinDirection: Math.random() > 0.5 ? 1 : -1,
   };
 }
 
 const initialHearts = Array.from({ length: 50 }, (_, i) => {
   const heart = createHeart();
-  // 처음 15개는 딜레이 없이 즉시 시작
-  if (i < 15) heart.delay = 0;
+  // 처음 20개는 딜레이 없이 즉시 + 빠른 속도
+  if (i < 20) {
+    heart.delay = 0;
+    heart.duration = 3 + Math.random() * 3;
+  }
   return heart;
 });
 
@@ -246,6 +252,14 @@ export default function WillYouComeToSuwonPage() {
   return (
     <>
       <style jsx global>{`
+        @keyframes flip-y {
+          0% {
+            transform: rotateY(0deg);
+          }
+          100% {
+            transform: rotateY(360deg);
+          }
+        }
         @keyframes float-up {
           0% {
             transform: translateY(110vh) translateX(0) scale(0.5);
@@ -312,11 +326,13 @@ export default function WillYouComeToSuwonPage() {
         onMouseMove={handleMouseMove}
       >
         {/* 하트 배경 */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="pointer-events-none absolute inset-0 overflow-hidden"
+          style={{ perspective: '800px' }}
+        >
           {initialHearts.map((heart) => (
-            <svg
+            <div
               key={heart.id}
-              viewBox="0 0 24 24"
               className="absolute"
               style={
                 {
@@ -325,7 +341,6 @@ export default function WillYouComeToSuwonPage() {
                   width: heart.size,
                   height: heart.size,
                   opacity: 0,
-                  fill: `rgba(244, 114, 182, ${heart.opacity + 0.2})`,
                   filter: heart.blur > 0 ? `blur(${heart.blur}px)` : undefined,
                   '--heart-opacity': heart.opacity,
                   '--sway': `${heart.sway}px`,
@@ -333,8 +348,20 @@ export default function WillYouComeToSuwonPage() {
                 } as React.CSSProperties
               }
             >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
+              <svg
+                viewBox="0 0 24 24"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  fill: `rgba(244, 114, 182, ${heart.opacity + 0.2})`,
+                  animation: heart.spin
+                    ? `flip-y ${heart.spinDuration}s linear infinite`
+                    : undefined,
+                }}
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </div>
           ))}
         </div>
         {!answered ? (
