@@ -270,6 +270,14 @@ export default function WillYouComeToSuwonPage() {
             transform: scale(8);
           }
         }
+        @keyframes shrink-button {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(0.5);
+          }
+        }
         @keyframes wiggle {
           0%,
           100% {
@@ -369,6 +377,13 @@ export default function WillYouComeToSuwonPage() {
                   onClick={handleNoClick}
                   onTouchStart={handleNoTouch}
                   className="rounded-xl border border-pink-300 bg-white px-10 py-4 text-xl font-bold text-pink-500 sm:px-14 sm:py-5 sm:text-2xl"
+                  style={
+                    growing
+                      ? {
+                          animation: 'shrink-button 25s ease-in forwards',
+                        }
+                      : undefined
+                  }
                 >
                   싫어!
                 </button>
