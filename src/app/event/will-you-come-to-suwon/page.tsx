@@ -100,9 +100,9 @@ export default function WillYouComeToSuwonPage() {
     btnWidth: number,
     btnHeight: number,
   ) => {
-    const padding = 20;
-    const maxX = window.innerWidth - btnWidth - padding;
-    const maxY = window.innerHeight - btnHeight - padding;
+    const padding = 40;
+    const maxX = window.innerWidth - Math.max(btnWidth, 120) - padding;
+    const maxY = window.innerHeight - Math.max(btnHeight, 50) - padding;
 
     let best = { x: 0, y: 0, dist: 0 };
     for (let i = 0; i < 15; i++) {
@@ -134,9 +134,12 @@ export default function WillYouComeToSuwonPage() {
         isEscapingRef.current = true;
         if (!growing) setGrowing(true);
 
-        const padding = 20;
-        const maxX = window.innerWidth - rect.width - padding;
-        const maxY = window.innerHeight - rect.height - padding;
+        const padding = 40;
+        // 원래 버튼 크기 기준으로 경계 계산 (shrink 애니메이션 보정)
+        const origWidth = Math.max(rect.width, 120);
+        const origHeight = Math.max(rect.height, 50);
+        const maxX = window.innerWidth - origWidth - padding;
+        const maxY = window.innerHeight - origHeight - padding;
 
         const escapeStrength = 200;
         const norm = Math.hypot(dx, dy) || 1;
@@ -365,7 +368,8 @@ export default function WillYouComeToSuwonPage() {
           ))}
         </div>
         {!answered ? (
-          <>
+          <div className="relative z-10 flex flex-col items-center gap-6 px-8 py-10 sm:gap-8 sm:px-16 sm:py-14">
+            <div className="absolute inset-0 z-0 rounded-3xl border border-pink-200 bg-[#fffaf5]/80 shadow-lg backdrop-blur-sm sm:rounded-4xl" />
             <Image
               src="/event/will-you-come-to-suwon/cat_love.gif"
               alt="cat love"
@@ -373,14 +377,14 @@ export default function WillYouComeToSuwonPage() {
               height={150}
               priority
               unoptimized
-              className="h-auto w-52 sm:w-72"
+              className="relative z-10 h-auto w-52 sm:w-72"
             />
 
-            <h1 className="text-center text-3xl font-extrabold leading-snug text-pink-900 sm:text-6xl">
+            <h1 className="relative z-10 text-center text-2xl font-extrabold leading-snug text-pink-900 sm:text-5xl">
               이번 주에 수원에서 놀까?!
             </h1>
 
-            <div className="flex items-center gap-6 sm:gap-8">
+            <div className="relative z-10 flex items-center gap-6 sm:gap-8">
               <button
                 onClick={handleYes}
                 className="rounded-xl bg-pink-400 px-10 py-4 text-xl font-bold text-white hover:bg-pink-500 sm:px-14 sm:py-5 sm:text-2xl"
@@ -416,10 +420,11 @@ export default function WillYouComeToSuwonPage() {
                 </button>
               )}
             </div>
-          </>
+          </div>
         ) : (
-          <div className="flex flex-col items-center gap-6 sm:gap-8">
-            <h2 className="text-center text-3xl font-extrabold text-pink-900 sm:text-5xl">
+          <div className="relative z-10 flex flex-col items-center gap-6 px-8 py-10 sm:gap-8 sm:px-16 sm:py-14">
+            <div className="absolute inset-0 z-0 rounded-3xl border border-pink-200 bg-[#fffaf5]/80 shadow-lg backdrop-blur-sm sm:rounded-4xl" />
+            <h2 className="relative z-10 text-center text-3xl font-extrabold text-pink-900 sm:text-5xl">
               히히 나도 좋아!
             </h2>
             <Image
@@ -428,7 +433,7 @@ export default function WillYouComeToSuwonPage() {
               width={200}
               height={200}
               unoptimized
-              className="h-auto w-52 sm:w-72"
+              className="relative z-10 h-auto w-52 sm:w-72"
             />
           </div>
         )}
