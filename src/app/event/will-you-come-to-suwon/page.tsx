@@ -7,10 +7,22 @@ import confetti from 'canvas-confetti';
 function createHeart() {
   // 원근 레이어: 0=먼 배경, 1=중간, 2=가까운 전경
   const layer = Math.floor(Math.random() * 3);
-  const sizeByLayer = [8 + Math.random() * 10, 16 + Math.random() * 16, 30 + Math.random() * 24];
-  const opacityByLayer = [0.1 + Math.random() * 0.1, 0.2 + Math.random() * 0.15, 0.3 + Math.random() * 0.2];
+  const sizeByLayer = [
+    8 + Math.random() * 10,
+    16 + Math.random() * 16,
+    30 + Math.random() * 24,
+  ];
+  const opacityByLayer = [
+    0.1 + Math.random() * 0.1,
+    0.2 + Math.random() * 0.15,
+    0.3 + Math.random() * 0.2,
+  ];
   const blurByLayer = [2 + Math.random() * 1.5, 0.5 + Math.random() * 0.5, 0];
-  const speedByLayer = [10 + Math.random() * 8, 7 + Math.random() * 6, 5 + Math.random() * 5];
+  const speedByLayer = [
+    10 + Math.random() * 8,
+    7 + Math.random() * 6,
+    5 + Math.random() * 5,
+  ];
 
   return {
     id: Math.random(),
@@ -330,7 +342,7 @@ export default function WillYouComeToSuwonPage() {
             />
 
             <h1 className="text-center text-3xl font-extrabold leading-snug text-pink-900 sm:text-6xl">
-              이번주에 수원 올래?
+              이번주에 수원에서 놀까?!
             </h1>
 
             <div className="flex items-center gap-6 sm:gap-8">
