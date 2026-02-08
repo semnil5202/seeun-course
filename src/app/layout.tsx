@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Seeun Course',
   description: '이벤트 & 데이트 코스',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
