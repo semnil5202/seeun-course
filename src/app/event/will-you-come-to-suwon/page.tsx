@@ -377,7 +377,7 @@ export default function WillYouComeToSuwonPage() {
             />
 
             <h1 className="text-center text-3xl font-extrabold leading-snug text-pink-900 sm:text-6xl">
-              이번주에 수원에서 놀까?!
+              이번 주에 수원에서 놀까?!
             </h1>
 
             <div className="flex items-center gap-6 sm:gap-8">
